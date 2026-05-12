@@ -30,7 +30,7 @@ Imagina un equipo de tres estudiantes colaborando en el mismo proyecto:
     John (USA): Abre el proyecto y lee create_agent(name: "Guardia").
     Hans (Alemania): Lo ve como erstelle_agent(name: "Guardia").
 
-Nexus traduce los verbos y conectores del lenguaje, manteniendo los nombres de variables (como "Guardia") para que la lógica no se pierda. Esto permite que el talento de cualquier rincón del mundo colabore sin barreras idiomáticas.
+Nexus-AI traduce los verbos y conectores del lenguaje, manteniendo los nombres de variables (como "Guardia") para que la lógica no se pierda. Esto permite que el talento de cualquier rincón del mundo colabore sin barreras idiomáticas.
 
 🤝 Colaboración
 Este proyecto nace de una visión humana enfocada en la democratización tecnológica y ha sido estructurado en colaboración con la IA de Google.Lenguaje de programación, multilingue para estudiantes.
