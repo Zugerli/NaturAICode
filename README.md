@@ -35,4 +35,6 @@ Lenguaje de programación, multilingue para estudiantes.
 Nexus-AI traduce los verbos y conectores del lenguaje, manteniendo los nombres de variables (como "Guardia") para que la lógica no se pierda. Esto permite que el talento de cualquier rincón del mundo colabore sin barreras idiomáticas.
 
 🤝 Colaboración
+
 Este proyecto nace de una visión humana enfocada en la democratización tecnológica y ha sido estructurado en colaboración con la IA de Google.
+
