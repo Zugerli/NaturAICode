@@ -34,7 +34,17 @@ Lenguaje de programación, multilingue para estudiantes.
 
 Nexus-AI traduce los verbos y conectores del lenguaje, manteniendo los nombres de variables (como "Guardia") para que la lógica no se pierda. Esto permite que el talento de cualquier rincón del mundo colabore sin barreras idiomáticas.
 
+## 🪄 Comandos Mágicos de Nexus-AI
+Nexus-AI simplifica tareas complejas de IA en una sola línea:
+
+1. `mirar.describir()`: La IA activa la cámara y narra lo que ve en tiempo real.
+2. `aprender_de("documento.pdf")`: Crea una base de datos inteligente con tus propios archivos.
+3. `escuchar.traducir(a: "ingles")`: Escucha por el micrófono y traduce al idioma elegido.
+4. `crear_interfaz("botones")`: Genera automáticamente una ventana para controlar tu programa.
+5. `cerebro.razonar("pregunta")`: Pide a la IA que tome una decisión o analice una situación.
+
 🤝 Colaboración
 
 Este proyecto nace de una visión humana enfocada en la democratización tecnológica y ha sido estructurado en colaboración con la IA de Google.
+
 
