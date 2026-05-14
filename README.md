@@ -1,11 +1,14 @@
-# Nexus-AI
-Nexus-AI: El Lenguaje Simbiótico
+# NaturAICode
+NaturAICode (NAIC) is presented as a new programming language designed for ease of use, security, and AI interoperability, bridging the gap between humans and AI models. 
+Four core pillars: natural language syntax, self-shielded memory, full interoperability, and AI-optimized compilation.
+
+NaturAICode: El Lenguaje Simbiótico
 "El puente definitivo entre la creatividad humana y la potencia de la IA."
 
-Nexus-IA es un lenguaje de programación de código abierto diseñado para que cualquier persona, sin importar su idioma o conocimientos técnicos, pueda crear modelos de IA generativa, sistemas de visión y agentes de razonamiento en minutos.
+Naic es un lenguaje de programación de código abierto diseñado para que cualquier persona, sin importar su idioma o conocimientos técnicos, pueda crear modelos de IA generativa, sistemas de visión y agentes de razonamiento en minutos.
 
-✨ ¿Por qué Nexus-AI?
-A diferencia de los lenguajes tradicionales, Nexus-IA es:
+✨ ¿Por qué Naic?
+A diferencia de los lenguajes tradicionales, Naic es:
 
 Humano-Céntrico: Se escribe como hablas. Está diseñado para ser aprendido por estudiantes, no solo por ingenieros.
 Multilingüe Nativo: Programa en tu idioma nativo. El motor traduce la intención, no solo las palabras.
@@ -13,7 +16,7 @@ Multimodal: La visión, el audio y el razonamiento son funciones básicas, no li
 Seguro y Optimizado: Utiliza un mentor de IA que prueba el código y optimiza el hardware (CPU/GPU) automáticamente.
 
 🚀 Ejemplo de Código
-nexus
+NaturAICode
 
 // Programando en español
 
@@ -34,8 +37,8 @@ Lenguaje de programación, multilingue para estudiantes.
 
 Nexus-AI traduce los verbos y conectores del lenguaje, manteniendo los nombres de variables (como "Guardia") para que la lógica no se pierda. Esto permite que el talento de cualquier rincón del mundo colabore sin barreras idiomáticas.
 
-## 🪄 Comandos Mágicos de Nexus-AI
-Nexus-AI simplifica tareas complejas de IA en una sola línea:
+## 🪄 Comandos Mágicos de NaturAICode
+Naic simplifica tareas complejas de IA en una sola línea:
 
 1. `mirar.describir()`: La IA activa la cámara y narra lo que ve en tiempo real.
 2. `aprender_de("documento.pdf")`: Crea una base de datos inteligente con tus propios archivos.
