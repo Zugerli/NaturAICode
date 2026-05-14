@@ -1,5 +1,5 @@
 # ==============================================================================
-# LIBRERÍAS REQUERIDAS:
+# LIBRERÍAS REQUERIDAS (Ejecutar antes en la terminal):
 # pip install opencv-python pyttsx3 ollama openai SpeechRecognition pyaudio
 # ==============================================================================
 
@@ -10,55 +10,48 @@ import locale
 import speech_recognition as sr
 from openai import OpenAI
 
-class Nexus:
+class Naic:
     def __init__(self):
+        self.engine_voz = pyttsx3.init()
         self.cap = None
         self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+
+        # Reconocedor de voz para el micrófono
         self.reconocedor = sr.Recognizer()
 
-        # Configuración de Modelos
+        # Configuración Local-Local (¡Probada y exitosa!)
         self.modelo_local = "llama3:8b"
-        self.cliente_ollama = ollama.Client()
+        self.cliente_ollama = ollama.Client() # Conexión local por defecto
+
         self.api_key_pago = None 
         self.client_pago = None
 
-        # Tabla de idiomas nativos
         self.idiomas_soportados = {
             'es': 'es-ES', 'en': 'en-US', 'fr': 'fr-FR', 'it': 'it-IT', 'de': 'de-DE'
         }
+        self.detectar_y_configurar_idioma_natal()
 
-        # Guardamos el idioma activo del sistema
-        self.idioma_activo = self.detectar_idioma_natal()
-
-    def detectar_idioma_natal(self):
+    def detectar_y_configurar_idioma_natal(self):
         try:
             idioma_sistema, _ = locale.getdefaultlocale()
             prefijo = idioma_sistema.split('_')[0].lower() if idioma_sistema else 'en'
-            return self.idiomas_soportados.get(prefijo, 'en-US')
+            codigo_windows = self.idiomas_soportados.get(prefijo, 'en-US')
+            self.configurar_idioma(codigo_windows)
+            print(f"[Naic]: Idioma del sistema configurado: {codigo_windows}")
         except Exception:
-            return 'en-US'
+            self.configurar_idioma('en-US')
 
-    def hablar(self, texto, codigo_idioma=None):
-        """ Inicializa y destruye el motor en cada llamada para evitar congelamientos de SAPI5 """
-        # Si no se especifica un idioma, usamos el idioma activo global
-        if not codigo_idioma:
-            codigo_idioma = self.idioma_activo
-
-        print(f"[Nexus - {codigo_idioma}]: {texto}")
-
-        # Inicialización fresca del motor para limpiar buffers corruptos de Windows
-        engine = pyttsx3.init()
-        voces = engine.getProperty('voices')
-
-        # Buscar la voz exacta instalada en el Windows de Zugerli
+    def configurar_idioma(self, codigo_idioma):
+        voces = self.engine_voz.getProperty('voices')
         for voz in voces:
             if codigo_idioma.lower() in voz.id.lower():
-                engine.setProperty('voice', voz.id)
+                self.engine_voz.setProperty('voice', voz.id)
                 break
 
-        engine.say(texto)
-        engine.runAndWait()
-        engine.stop() # Forzamos el cierre inmediato del servicio de audio
+    def hablar(self, texto):
+        print(f"[Naic]: {texto}")
+        self.engine_voz.say(texto)
+        self.engine_voz.runAndWait()
 
     def razonar_hibrido(self, pregunta):
         try:
@@ -70,19 +63,21 @@ class Nexus:
     def capturar_microfono(self):
         with sr.Microphone() as fuente:
             print("[Oído]: Escuchando... Habla ahora.")
+            # Ajustar el ruido ambiental automáticamente
             self.reconocedor.adjust_for_ambient_noise(fuente, duration=1)
             audio = self.reconocedor.listen(fuente)
 
             try:
+                # Transcribe el audio usando el motor nativo de Google (gratuito)
                 print("[Oído]: Procesando audio...")
-                texto_escuchado = self.reconocedor.recognize_google(audio, language=self.idioma_activa if hasattr(self, 'idioma_activa') else "es-ES")
+                texto_escuchado = self.reconocedor.recognize_google(audio, language="es-ES")
                 print(f"[Usuario dijo]: {texto_escuchado}")
                 return texto_escuchado
             except sr.UnknownValueError:
-                self.hablar("No logré entender lo que dijiste.")
+                self.hablar("No logré entender lo que dijiste, ¿podrías repetirlo?")
                 return None
             except sr.RequestError:
-                self.hablar("Problema de conexión en el módulo de oído.")
+                self.hablar("Problema de conexión con el sistema de oído.")
                 return None
 
     def ejecutar(self, comando):
@@ -90,8 +85,7 @@ class Nexus:
 
         if "configurar.idioma" in comando:
             idioma = comando.split('"')[1]
-            self.idioma_activo = idioma
-            print(f"[Nexus]: Idioma cambiado globalmente a {idioma}")
+            self.configurar_idioma(idioma)
 
         elif "voz.decir" in comando:
             texto = comando.split('"')[1]
@@ -102,20 +96,25 @@ class Nexus:
             respuesta = self.razonar_hibrido(pregunta)
             self.hablar(respuesta)
 
+        # NUEVO COMANDO MÁGICO v0.6
         elif "escuchar.traducir" in comando:
             idioma_destino = comando.split('"')[1]
-            self.hablar("Por favor, habla después de que se active el micrófono.")
+            self.hablar(f"Por favor, habla después de que se active el micrófono.")
 
             texto_humano = self.capturar_microfono()
             if texto_humano:
-                prompt_traduccion = f"Traduce exactamente el siguiente texto al idioma cuya cultura es {idioma_destino}. Devuelve EXCLUSIVAMENTE la traducción, sin textos adicionales: '{texto_humano}'"
-                traduccion = self.razonar_hibrido(prompt_traduccion).strip()
+                # Usamos el cerebro de Ollama para hacer la traducción de forma inteligente
+                prompt_traduccion = f"Traduce exactamente el siguiente texto al idioma {idioma_destino}. Devuelve SOLO la traducción, nada más: '{texto_humano}'"
+                traduccion = self.razonar_hibrido(prompt_traduccion)
 
-                # Pasamos explícitamente el idioma destino a la función hablar para que use la voz correcta
-                self.hablar(traduccion, codigo_idioma=idioma_destino)
+                # Cambiamos temporalmente la voz de Naic para que pronuncie bien el idioma destino
+                if "ingles" in idioma_destino.lower() or "english" in idioma_destino.lower():
+                    self.configurar_idioma("en-US")
 
-                # Confirmación final volviendo de forma segura a español
-                self.hablar("Traducción completada con éxito.", codigo_idioma=self.detectar_idioma_natal())
+                self.hablar(traduccion)
+
+                # Restauramos a español
+                self.detectar_y_configurar_idioma_natal()
 
         elif "mirar.describir" in comando:
             self.hablar("Abriendo cámara para escaneo rápido.")
@@ -130,8 +129,8 @@ class Nexus:
                     self.hablar("No detecto humanos ahora mismo.")
             self.cap.release()
 
-    def probar(self, codigo_nexus):
-        for linea in codigo_nexus.split('\n'):
+    def probar(self, codigo_naic):
+        for linea in codigo_naic.split('\n'):
             if linea.strip() and not linea.strip().startswith("//"):
                 self.ejecutar(linea)
 
@@ -139,9 +138,8 @@ class Nexus:
 # PRUEBA DE USUARIO (Zugerli)
 # ==============================================================================
 mi_app = """
-configurar.idioma("es-ES")
-escuchar.traducir(a: "en-US") // Prueba con "en-US"
+escuchar.traducir(a: "ingles")
 """
 
-nexus = Nexus()
-nexus.probar(mi_app)
+naic = Naic()
+naic.probar(mi_app)

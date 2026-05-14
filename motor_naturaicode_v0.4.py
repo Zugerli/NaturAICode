@@ -1,9 +1,9 @@
-# motor_nexus_v0.4.py
+# motor_naic_v0.4.py
 import openai  # Para el razonamiento
 import cv2     # Para la visión
 import pyttsx3 # Para la voz
 
-class Nexus:
+class Naic:
     def __init__(self):
         self.engine_voz = pyttsx3.init()
         self.configurar_idioma('es-ES')  # Idioma por defecto al arrancar
@@ -25,10 +25,10 @@ class Nexus:
                 break
 
         if not encontrado:
-            print(f"[Nexus Advertencia]: No se encontró la voz exacta para '{codigo_idioma}'. Usando voz activa.")
+            print(f"[Naic Advertencia]: No se encontró la voz exacta para '{codigo_idioma}'. Usando voz activa.")
 
     def hablar(self, texto):
-        print(f"[Nexus]: {texto}")
+        print(f"[Naic]: {texto}")
         self.engine_voz.say(texto)
         self.engine_voz.runAndWait()
 
@@ -64,7 +64,7 @@ class Nexus:
                 for (x, y, w, h) in rostros:
                     cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
-                cv2.imshow("Vista en tiempo real - Nexus-AI", frame)
+                cv2.imshow("Vista en tiempo real - Naic-AI", frame)
 
                 # Lógica de respuesta según la visión real de la IA
                 num_rostros = len(rostros)
@@ -80,9 +80,9 @@ class Nexus:
 
             self.cap.release()
 
-    def probar(self, codigo_nexus):
-        for linea in codigo_nexus.split('\n'):
-            # Ignorar líneas vacías y comentarios de Nexus
+    def probar(self, codigo_naic):
+        for linea in codigo_naic.split('\n'):
+            # Ignorar líneas vacías y comentarios de Naic
             if linea.strip() and not linea.strip().startswith("//"):
                 self.ejecutar(linea)
 
@@ -95,5 +95,5 @@ voz.decir("Iniciando reconocimiento de entorno.")
 mirar.describir()
 """
 
-nexus = Nexus()
-nexus.probar(mi_app)
+naic = Naic()
+naic.probar(mi_app)

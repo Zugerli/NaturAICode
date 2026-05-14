@@ -1,10 +1,10 @@
-# motor_nexus_v0.5.py
+# motor_naic_v0.5.py
 import cv2
 import pyttsx3
 import ollama
 from openai import OpenAI  # Para la opción de pago (por ejemplo, GPT-4o o Claude)
 
-class Nexus:
+class Naic:
     def __init__(self):
         self.engine_voz = pyttsx3.init()
         self.configurar_idioma('es-ES')
@@ -24,7 +24,7 @@ class Nexus:
                 break
 
     def hablar(self, texto):
-        print(f"[Nexus]: {texto}")
+        print(f"[Naic]: {texto}")
         self.engine_voz.say(texto)
         self.engine_voz.runAndWait()
 
@@ -46,7 +46,7 @@ class Nexus:
 
         except Exception as e:
             # Si el modelo local falla o no está encendido, intentamos usar el de pago si está disponible
-            print(f"[Nexus Advertencia]: Error en modelo local.")
+            print(f"[Naic Advertencia]: Error en modelo local.")
             if self.api_key_pago:
                 print("[Cerebro]: Derivando automáticamente al modelo en la nube...")
                 return self.razonar_pago(pregunta)
@@ -95,8 +95,8 @@ class Nexus:
                     self.hablar("No detecto humanos ahora mismo.")
             self.cap.release()
 
-    def probar(self, codigo_nexus):
-        for linea in codigo_nexus.split('\n'):
+    def probar(self, codigo_naic):
+        for linea in codigo_naic.split('\n'):
             if linea.strip() and not linea.strip().startswith("//"):
                 self.ejecutar(linea)
 
@@ -108,5 +108,5 @@ configurar.idioma("es-ES")
 cerebro.razonar("Explícame brevemente qué es la gravedad de forma sencilla")
 """
 
-nexus = Nexus()
-nexus.probar(mi_app)
+naic = Naic()
+naic.probar(mi_app)
