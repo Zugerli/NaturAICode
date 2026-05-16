@@ -46,6 +46,38 @@ Naic simplifica tareas complejas de IA en una sola línea:
 4. `crear_interfaz("botones")`: Genera automáticamente una ventana para controlar tu programa.
 5. `cerebro.razonar("pregunta")`: Pide a la IA que tome una decisión o analice una situación.
 
+
+# NaturAICode (NAIC) 🚀
+**Natural AI Code** es un motor e intérprete híbrido diseñado para cerrar la brecha entre el lenguaje humano, las Inteligencias Artificiales y la ejecución nativa de hardware (Voz, Visión y LLMs locales). 
+
+Este motor permite ejecutar flujos complejos de accesibilidad y traducción pedagógica utilizando comandos semánticos simples que tanto estudiantes como IAs pueden escribir y comprender sin lidiar con la rigidez de la sintaxis tradicional.
+
+## 🌟 Características Clave
+- **Zero-Parser Philosophy**: El motor prioriza la intención semántica sobre la sintaxis rígida. Es inmune a errores de tipografía o formato.
+- **Detección Local de Idioma**: Configuración regional automática compatible con Windows 11, Linux y macOS sin llamadas a APIs obsoletas.
+- **Multihilo Nativo (Threading)**: El procesamiento de audio y las peticiones a Ollama corren en segundo plano, manteniendo la cámara y la interfaz gráfica a frames continuos.
+- **Soporte de Voz Dinámico**: Valida de forma estricta los paquetes de síntesis de voz (`pyttsx3`) instalados en el sistema operativo del usuario.
+
+## 🛠️ Requisitos del Sistema
+Asegúrate de tener instalado Python 3.11 o superior y los siguientes módulos:
+
+```bash
+pip install opencv-python pyttsx3 ollama speechrecognition pillow
+```
+*Nota: Requiere tener configurado e iniciado un servidor local de [Ollama](https://ollama.com) con el modelo `llama3:8b`.*
+
+## 📖 El Lenguaje .naic
+Las Inteligencias Artificiales o los alumnos pueden describir secuencias en archivos con extensión `.naic`. El motor interpretará de forma adaptativa comandos como:
+
+```text
+# Configuración pedagógica de traducción
+escuchar.traducir(a: "ingles")
+```
+
+Incluso variaciones naturales o pequeños errores de sintaxis serán procesados correctamente por la capa de abstracción del LLM local.
+
+
+
 🤝 Colaboración
 
 Este proyecto nace de una visión humana enfocada en la democratización tecnológica y ha sido estructurado en colaboración con la IA de Google.
