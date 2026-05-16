@@ -1,0 +1,3 @@
+# Mi primer programa educativo en NAIC
+# El sistema ignorará los comentarios y ejecutará el comando directo
+escuchar.traducir(a: "ingles")

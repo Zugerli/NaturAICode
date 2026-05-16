@@ -124,8 +124,8 @@ class Naic:
                 self.lbl_video.imgtk = imgtk
                 self.lbl_video.configure(image=imgtk)
 
-            # Re-ejecutar esta función cada 10 milisegundos para mantener el flujo de video vivo
-            self.lbl_video.after(10, self.UI_actualizar_camara)
+            # Re-ejecutar esta función cada 20 milisegundos para mantener el flujo de video vivo
+            self.lbl_video.after(20, self.UI_actualizar_camara)
 
     def iniciar_interfaz_grafica(self):
         """ Construye la ventana del Naic Studio """
